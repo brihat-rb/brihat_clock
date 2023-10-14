@@ -1,0 +1,237 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Laila;
+    color: #fff;
+    user-select: none;
+}
+
+body {
+    background: rgba(0, 0, 0, 1);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(0, 255, 0, 0.20);
+    background-image: url(./logo.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 25%;
+    padding: 20px;
+    outline: 5px solid darkgreen;
+    outline-offset: 5px;
+    box-shadow: 0 0 100px gold;
+}
+
+.clock {
+    position: relative;
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 25px solid darkcyan;
+}
+
+#logo_div {
+    position: relative;
+    height: 75px;
+    width: 75px;
+}
+
+.clock span {
+    position: absolute;
+    transform: rotate(calc(30deg * var(--j)));
+    inset: 5px;
+    text-align: center;
+}
+
+.clock span b {
+    transform: rotate(calc(-30deg * var(--j)));
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 900;
+    height: 30px;
+    width: 50px;
+    color: gold;
+}
+
+span.ticks {
+    position: absolute;
+    transform: rotate(calc(6deg * var(--ticks) + 18deg));
+    inset: 30px;
+    text-align: right;
+}
+
+span.ticks b {
+    transform: rotate(130deg);
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 900;
+    height: 25px;
+    width: 50px;
+    color: gold;
+}
+
+.hand, .handrev {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.hand i, .handrev i {
+    position: absolute;
+    background: var(--clr);
+    height: var(--ht);
+    width: var(--wt);
+    z-index: 0;
+    border-radius: 40%;
+}
+
+#dot {
+    border-radius: 50%;
+    top: 230px;
+    left: 225px;
+}
+
+#month_date {
+    position: relative;
+    font-size: 24px;
+    font-weight: bolder;
+    top: -21px;
+}
+
+#month {
+    position: relative;
+    left: 95px;
+    background-color: #fff;
+    color: #000;
+}
+
+#date {
+    left: 160px;
+}
+
+#digital {
+    position: relative;
+    font-size: 50px;
+    font-weight: bolder;
+    top: 85px;
+    left: -20px;
+}
+
+#digital>span>mark {
+    line-height: 1.0;
+    height: 45px;
+    width: 63px;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+}
+
+#month_date>span>mark {
+    line-height: 1.0;
+    height: 22px;
+    width: 55px;
+    display: inline-block;
+}
+
+#digital_hour {
+    position: relative;
+    left: -108px;
+    background-color: red;
+    color: #000;
+}
+
+#digital_minute {
+    position: relative;
+    left: -45px;
+    background-color: blue;
+    color: white;
+}
+
+#digital_second {
+    position: relative;
+    left: 18px;
+    background-color: yellow;
+    color: #000;
+}
+
+#digital_msecond {
+    position: relative;
+    font-size: xx-large;
+    background-color: black;
+    color: green;
+    top: 0px;
+    left: 82px;
+    height: 32px !important;
+    width: 63px !important;
+}
+
+#utc_digital {
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    top: 63px;
+    left: -30px;
+}
+
+#utc_digital>span>mark {
+    line-height: 1.0;
+    height: 20px;
+    width: 25px;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+}
+
+#utc_month {
+    position: relative;
+    left: -55px;
+    background-color: white;
+    color: black;
+    width: 40px !important;
+}
+
+#utc_date {
+    position: relative;
+    left: -12px;
+    background-color: inherit;
+    color: white;
+}
+
+#utc_digital_hour {
+    position: relative;
+    left: 45px;
+    background-color: coral;
+    color: #000;
+}
+
+#utc_digital_minute {
+    position: relative;
+    left: 70px;
+    background-color: lightblue;
+    color: #000;
+}
+
+#utc_digital_second {
+    position: relative;
+    left: 95px;
+    background-color: lightyellow;
+    color: #000;
+}
+
+#utc_digital_msecond {
+    position: relative;
+    font-size: small;
+    background-color: black;
+    color: lightgreen;
+    top: 3px;
+    left: 120px;
+    height: 11px !important;
+    width: 30px !important;
+}
