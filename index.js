@@ -38,6 +38,13 @@ function days_of_year(date) {
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / (24 * 60 * 60 * 1000);
 }
 
+function days_of_year_bs(ad_year, ad_month, ad_date) {
+    let today_bs = convert_ad_to_bs(ad_year, ad_month, ad_date).split(" ");
+    let today_date_bs_in_ad = Date.UTC(ad_year, ad_month, ad_date);
+    let start_date_bs_in_ad = Date.UTC(...convert_bs_to_ad(today_bs[0], 1, 1).split(" "));
+    return (today_date_bs_in_ad - start_date_bs_in_ad) / (24 * 60 * 60 * 1000);
+}
+
 function toggle_lang() {
     lang = (lang == "np") ? "en" : "np";
     localStorage.setItem('LANG', lang);
@@ -61,7 +68,7 @@ function displayTime() {
     let month = date.getMonth();
     let ddate = date.getDate();
     let yearly_days = days_of_year(date);
-    let is_leap_year = ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    let leap_year = is_leap_year(year);
 
     let utc_hh = date.getUTCHours();
     let utc_mm = date.getUTCMinutes();
@@ -70,8 +77,9 @@ function displayTime() {
     let utc_month = date.getUTCMonth();
     let utc_ddate = date.getUTCDate();
 
+    let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
+
     if (in_nep) {
-        let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
         month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
         month_span.style = "width: 65px !important; height: 30px !important; left: 85px !important; padding-top: 5px;";
         date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
@@ -115,7 +123,10 @@ function displayTime() {
 
     let ms_rotation = (mmss * 9) / 25;
 
-    let y_rotation = is_leap_year ? yearly_days / 366 * 360 : yearly_days / 365 * 360;
+    let y_rotation = leap_year ? yearly_days / 366 * 360 : yearly_days / 365 * 360;
+    if (in_nep) {
+        y_rotation = (days_of_year_bs(year, month + 1, ddate) / BS_CALENDAR_DATA[bs_date[0]][12]) * 360;
+    }
 
     year_hand.style.transform = `rotate(${y_rotation}deg)`;
     hour.style.transform = `rotate(${h_rotation}deg)`;
