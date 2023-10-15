@@ -81,7 +81,7 @@ function displayTime() {
 
     if (in_nep) {
         month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
-        month_span.style = "width: 65px !important; height: 30px !important; left: 85px !important; padding-top: 5px;";
+        month_span.classList.add("nep");
         date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
     }
     else {

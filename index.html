@@ -7,13 +7,14 @@
     <title>Clock | Brihat</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css2?family=Laila&display=swap" rel="stylesheet" preload>
-    <link href="https://fonts.cdnfonts.com/css/led-digital-7" rel="stylesheet" preload>
     <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
     <div class="container">
         <div class="clock">
+            <div class="hand" id="year"><i></i></div>
+
             <div id="digital">
                 <span><mark id="digital_hour">00</mark></span>
                 <span><mark id="digital_minute">00</mark></span>
@@ -22,7 +23,7 @@
             </div>
 
             <div id="utc_digital">
-                <span style="font-size: small; left: -135px; top: 15px; color: gold;">UTC: </span>
+                <span id="utc_span">UTC: </span>
                 <span><mark id="utc_month">JAN</mark></span>
                 <span><mark id="utc_date">1</mark></span>
                 <span><mark id="utc_digital_hour">00</mark></span>
@@ -36,20 +37,18 @@
                 <span id="date">1</span>
             </div>
 
-            <div style="--clr:black;--ht:250px;--wt:3px;" class="hand" id="year"><i></i></div>
+            <div class="hand" id="hour"><i></i></div>
+            <div class="handrev" id="rev_hour"><i></i></div>
 
-            <div style="--clr:red;--ht:90px;--wt:9px;" class="hand" id="hour"><i></i></div>
-            <div style="--clr:red;--ht:20px;--wt:9px;" class="handrev" id="rev_hour"><i></i></div>
+            <div class="hand" id="minute"><i></i></div>
+            <div class="handrev" id="rev_minute"><i></i></div>
 
-            <div style="--clr:blue;--ht:160px;--wt:7px;" class="hand" id="minute"><i></i></div>
-            <div style="--clr:blue;--ht:32px;--wt:7px;" class="handrev" id="rev_minute"><i></i></div>
+            <div class="hand" id="second"><i></i></div>
+            <div class="handrev" id="rev_second"><i></i></div>
 
-            <div style="--clr:yellow;--ht:200px;--wt:4px;" class="hand" id="second"><i></i></div>
-            <div style="--clr:yellow;--ht:40px;--wt:4px;" class="handrev" id="rev_second"><i></i></div>
-
-            <div style="--clr:gold;--ht:25px;--wt:10px;" class="hand" id="msecond1"><i></i></div>
-            <div style="--clr:red;--ht:25px;--wt:10px;" class="hand" id="msecond2"><i></i></div>
-            <div style="--clr:blue;--ht:25px;--wt:10px;" class="hand" id="msecond3"><i></i></div>
+            <div class="hand" id="msecond1"><i></i></div>
+            <div class="hand" id="msecond2"><i></i></div>
+            <div class="hand" id="msecond3"><i></i></div>
 
             <span class="clocktime" style="--j:1"><b>1</b></span>
             <span class="clocktime" style="--j:2"><b>2</b></span>
