@@ -1,3 +1,12 @@
+let lang = "en";
+
+if (localStorage.LANG) {
+    lang = localStorage.LANG;
+}
+localStorage.setItem('LANG', lang);
+
+let in_nep = lang == "np";
+
 let year_hand = document.getElementById('year');
 let hour = document.getElementById('hour');
 let minute = document.getElementById('minute');
@@ -25,13 +34,23 @@ let utc_msecond_span = document.getElementById('utc_digital_msecond');
 let utc_month_span = document.getElementById('utc_month');
 let utc_date_span = document.getElementById('utc_date');
 
-let ad_month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-
 function days_of_year(date) {
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / (24 * 60 * 60 * 1000);
 }
 
+function toggle_lang() {
+    lang = (lang == "np") ? "en" : "np";
+    localStorage.setItem('LANG', lang);
+    in_nep = lang == "np";
+}
+
 function displayTime() {
+    if (in_nep) {
+        let time_span = document.getElementsByClassName("clocktime");
+        for (var i = 0; i < time_span.length; i++) {
+            time_span[i].childNodes[0].innerText = arabic_numbertext_to_nepali(time_span[i].childNodes[0].innerText);
+        }
+    }
     let date = new Date();
 
     let hh = date.getHours();
@@ -51,19 +70,40 @@ function displayTime() {
     let utc_month = date.getUTCMonth();
     let utc_ddate = date.getUTCDate();
 
-    month_span.innerHTML = ad_month[month];
-    date_span.innerHTML = ddate;
+    if (in_nep) {
+        let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
+        month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
+        month_span.style = "width: 65px !important; height: 30px !important; left: 85px !important; padding-top: 5px;";
+        date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
+    }
+    else {
+        month_span.innerHTML = AD_MONTHS_SHORT[month];
+        date_span.innerHTML = ddate;
+        month_span.style.textTransform = "uppercase";
+    }
 
     hour_span.innerHTML = hh.toString().padStart(2, "0");
     minute_span.innerHTML = mm.toString().padStart(2, "0");
     second_span.innerHTML = ss.toString().padStart(2, "0");
     msecond_span.innerHTML = mmss.toString().padStart(3, "0");
 
+    if (in_nep) {
+        hour_span.style.fontFamily = "Laila";
+        minute_span.style.fontFamily = "Laila";
+        second_span.style.fontFamily = "Laila";
+        msecond_span.style.fontFamily = "Laila";
+        hour_span.innerHTML = arabic_numbertext_to_nepali(hh.toString().padStart(2, "0"));
+        minute_span.innerHTML = arabic_numbertext_to_nepali(mm.toString().padStart(2, "0"));
+        second_span.innerHTML = arabic_numbertext_to_nepali(ss.toString().padStart(2, "0"));
+        msecond_span.innerHTML = arabic_numbertext_to_nepali(mmss.toString().padStart(3, "0"));
+    }
+
     utc_hour_span.innerHTML = utc_hh.toString().padStart(2, "0");
     utc_minute_span.innerHTML = utc_mm.toString().padStart(2, "0");
     utc_second_span.innerHTML = utc_ss.toString().padStart(2, "0");
     utc_msecond_span.innerHTML = utc_mmss.toString().padStart(3, "0");
-    utc_month_span.innerHTML = ad_month[utc_month];
+    utc_month_span.innerHTML = AD_MONTHS_SHORT[utc_month];
+    utc_month_span.style.textTransform = "uppercase";
     utc_date_span.innerHTML = utc_ddate.toString();
 
     // let h_rotation = 30 * hh + mm / 2 + ss / 120;
