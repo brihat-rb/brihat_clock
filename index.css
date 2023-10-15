@@ -59,21 +59,29 @@ body {
     height: 30px;
     width: 50px;
     color: gold;
+    filter: drop-shadow(0px 0px 2px lime);
 }
 
 span.ticks {
     position: absolute;
-    transform: rotate(calc(6deg * var(--ticks) + 18deg));
-    inset: 30px;
-    text-align: right;
+    transform: rotate(calc(6deg * var(--ticks)));
+    inset: -28px;
+    display: inline;
+}
+
+mark {
+    border-radius: 15%;
+}
+
+.ticks {
+    vertical-align: middle;
 }
 
 span.ticks b {
-    transform: rotate(130deg);
-    display: inline-block;
+    transform: rotate(90deg);
     font-size: 24px;
     font-weight: 900;
-    height: 25px;
+    height: 32px;
     width: 50px;
     color: gold;
 }
@@ -138,42 +146,49 @@ span.ticks b {
     --clr: black;
     --ht: 250px;
     --wt: 3px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #hour {
     --clr: red;
     --ht: 90px;
     --wt: 9px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #rev_hour {
     --clr: red;
     --ht: 20px;
     --wt: 9px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #minute {
     --clr: blue;
     --ht: 160px;
     --wt: 7px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #rev_minute {
     --clr: blue;
     --ht: 32px;
     --wt: 7px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #second {
     --clr: yellow;
     --ht: 200px;
     --wt: 4px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #rev_second {
     --clr: yellow;
     --ht: 40px;
     --wt: 4px;
+    filter: drop-shadow(0px 0px 5px lime);
 }
 
 #msecond1, #msecond2, #msecond3 {
@@ -191,12 +206,6 @@ span.ticks b {
 
 #msecond3 {
     --clr: blue;
-}
-
-#rev_second {
-    --clr: yellow;
-    --ht: 18px;
-    --wt: 4px;
 }
 
 #digital>span>mark {
@@ -337,9 +346,7 @@ span.ticks b {
 
     span.ticks {
         position: absolute;
-        transform: rotate(calc(6deg * var(--ticks) + 20deg));
-        inset: 1px;
-        text-align: right;
+        transform: rotate(calc(6deg * var(--ticks)));
     }
 
     #year {

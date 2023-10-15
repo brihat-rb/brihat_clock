@@ -52,12 +52,11 @@ function toggle_lang() {
 }
 
 function displayTime() {
-    if (in_nep) {
-        let time_span = document.getElementsByClassName("clocktime");
-        for (var i = 0; i < time_span.length; i++) {
-            time_span[i].childNodes[0].innerText = arabic_numbertext_to_nepali(time_span[i].childNodes[0].innerText);
-        }
+    let time_span = document.getElementsByClassName("clocktime");
+    for (var i = 0; i < time_span.length; i++) {
+        time_span[i].childNodes[0].innerText = in_nep ? arabic_numbertext_to_nepali(time_span[i].childNodes[0].innerText) : i + 1;
     }
+
     let date = new Date();
 
     let hh = date.getHours();
