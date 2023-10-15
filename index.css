@@ -143,9 +143,9 @@ span.ticks b {
 }
 
 #year {
-    --clr: black;
+    --clr: white;
     --ht: 250px;
-    --wt: 3px;
+    --wt: 2px;
     filter: drop-shadow(0px 0px 5px lime);
 }
 
