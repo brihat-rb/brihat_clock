@@ -463,7 +463,8 @@ span.ticks b {
     #utc_digital_msecond {
         font-size: xx-small;
         left: 60px;
-        height: 10px !important;
+        top: 2px;
+        height: 7px !important;
         width: 20px !important;
     }
 
