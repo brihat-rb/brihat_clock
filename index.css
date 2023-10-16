@@ -7,6 +7,10 @@
     user-select: none;
 }
 
+.iniani {
+	transition: ease-in 1s;
+}
+
 body {
     background: rgba(0, 0, 0, 1);
     min-height: 100vh;
