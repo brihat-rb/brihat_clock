@@ -7,6 +7,8 @@
     <title>Clock | Brihat</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css2?family=Laila&display=swap" rel="stylesheet" preload>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        preload />
     <link rel="stylesheet" href="./index.css">
 </head>
 
@@ -31,7 +33,8 @@
                 <span class="clock_time" style="--jk:11"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:12"><b>12</b></span>
 
-                <div style="--clr:white;--ht:3px;--wt:3px; z-index: 999;" class="inside_hand" id="inside_dot"><i></i></div>
+                <div style="--clr:white;--ht:3px;--wt:3px; z-index: 999;" class="inside_hand" id="inside_dot"><i></i>
+                </div>
             </div>
             <div class="hand iniani" id="year"><i></i></div>
 
@@ -50,6 +53,11 @@
                 <span><mark id="utc_digital_minute">00</mark></span>
                 <span><mark id="utc_digital_second">00</mark></span>
                 <span><mark id="utc_digital_msecond">000</mark></span>
+            </div>
+
+            <div id="sunrise_sunset">
+                <div><i id='sunrise' class='fa fa-sun-o' aria-hidden='true'></i></div>
+                <div><i id='sunset' class='fa fa-moon-o' aria-hidden='true'></i></div>
             </div>
 
             <div id="month_date">
@@ -168,6 +176,7 @@
         src="https://cdn.jsdelivr.net/gh/brihat-rb/brihat_calendar/js/base/NS_AD.js"></script>
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/gh/brihat-rb/brihat_calendar/js/base/AD_BS.js"></script>
+    <script src="./init_script.js"></script>
     <script src="./index.js"></script>
 </body>
 

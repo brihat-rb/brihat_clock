@@ -40,6 +40,9 @@ let utc_msecond_span = document.getElementById('utc_digital_msecond');
 let utc_month_span = document.getElementById('utc_month');
 let utc_date_span = document.getElementById('utc_date');
 
+let sunrise_div = document.getElementById('sunrise');
+let sunset_div = document.getElementById('sunset');
+
 function days_of_year(date) {
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / (24 * 60 * 60 * 1000);
 }
@@ -171,6 +174,30 @@ function displayTime() {
     hour_ii.style.transform = `rotate(${h_ii_rotation}deg)`;
     minute_ii.style.transform = `rotate(${m_ii_rotation}deg)`;
     second_ii.style.transform = `rotate(${s_ii_rotation}deg)`;
+
+    if (sunrisesunset_json_loaded) {
+        var today_sunrise = sunrises[month][ddate - 1].split(":");
+        var today_sunrise_hh = parseInt(today_sunrise[0]);
+        var today_sunrise_mm = parseInt(today_sunrise[1]);
+
+        var today_sunset = sunsets[month][ddate - 1].split(":");
+        var today_sunset_hh = parseInt(today_sunset[0]);
+        var today_sunset_mm = parseInt(today_sunset[1]);
+
+        if ((hh < today_sunrise_hh || (hh == today_sunrise_hh && mm < today_sunrise_mm)) || (hh > today_sunset_hh || (hh == today_sunset_hh && mm > today_sunset_mm))) {
+            // moon
+            sunset_div.classList.add("sunset");
+            sunrise_div.classList.remove("sunrise");
+        }
+        else if ((hh > today_sunrise_hh || (hh == today_sunrise_hh && mm >= today_sunrise_mm)) && (hh < today_sunset_hh || (hh == today_sunset_hh && mm <= today_sunset_mm))) {
+            //sun
+            sunset_div.classList.remove("sunset");
+            sunrise_div.classList.add("sunrise");
+        }
+    }
+    else {
+        // console.warn("Could not fetch sunrise-sunset times.");
+    }
 }
 
 displayTime();

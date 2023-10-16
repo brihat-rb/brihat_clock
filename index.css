@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Laila;
-    color: #fff;
+    /* color: #fff; */
     user-select: none;
 }
 
@@ -398,6 +398,29 @@ span.ticks b {
     padding-top: 5px;
 }
 
+#sunrise_sunset {
+    position: absolute;
+    font-size: 50px;
+    font-weight: bold;
+    top: 0%;
+    width: 195%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#sunrise, #sunset{
+    color: rgba(0, 0, 0, 0.75);
+    filter: drop-shadow(0px 0px 5px lime);
+}
+
+.sunrise {
+    color: gold !important;
+}
+
+.sunset {
+    color: ghostwhite !important;
+}
+
 @media screen and (max-width: 400px) {
     * {
         scrollbar-width: none;
@@ -593,5 +616,11 @@ span.ticks b {
         font-size: medium;
         top: 7px !important;
         left: 97px !important;
+    }
+
+    #sunrise_sunset {
+        font-size: 25px;
+        top: -5%;
+        width: 190%;
     }
 }
