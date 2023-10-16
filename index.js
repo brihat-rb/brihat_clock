@@ -46,9 +46,23 @@ function days_of_year_bs(ad_year, ad_month, ad_date) {
 }
 
 function toggle_lang() {
-    lang = (lang == "np") ? "en" : "np";
+    clearInterval(intervalID);
+    clearInterval(innerIntervalID);
+	
+	lang = (lang == "np") ? "en" : "np";
     localStorage.setItem('LANG', lang);
     in_nep = lang == "np";
+	
+	Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.add('iniani'));
+	Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.add('iniani'));
+	
+	displayTime();
+	
+	intervalID = setTimeout(function() {
+		Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
+		Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
+		innerIntervalID = setInterval(displayTime, 25);
+	}, 1000);
 }
 
 function displayTime() {
@@ -139,4 +153,12 @@ function displayTime() {
     msecond3.style.transform = `rotate(${ms_rotation + 240}deg)`;
 }
 
-setInterval(displayTime, 25);
+displayTime();
+
+let innerIntervalID = null;
+
+let intervalID = setTimeout(function() {
+	Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
+	Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
+	innerIntervalID = setInterval(displayTime, 25);
+}, 1000);
