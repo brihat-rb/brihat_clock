@@ -8,9 +8,15 @@ localStorage.setItem('LANG', lang);
 let in_nep = lang == "np";
 
 let year_hand = document.getElementById('year');
+
 let hour = document.getElementById('hour');
 let minute = document.getElementById('minute');
 let second = document.getElementById('second');
+
+let hour_ii = document.getElementById('hour_ii');
+let minute_ii = document.getElementById('minute_ii');
+let second_ii = document.getElementById('second_ii');
+
 let msecond1 = document.getElementById('msecond1');
 let msecond2 = document.getElementById('msecond2');
 let msecond3 = document.getElementById('msecond3');
@@ -48,21 +54,23 @@ function days_of_year_bs(ad_year, ad_month, ad_date) {
 function toggle_lang() {
     clearInterval(intervalID);
     clearInterval(innerIntervalID);
-	
-	lang = (lang == "np") ? "en" : "np";
+
+    lang = (lang == "np") ? "en" : "np";
     localStorage.setItem('LANG', lang);
     in_nep = lang == "np";
-	
-	Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.add('iniani'));
-	Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.add('iniani'));
-	
-	displayTime();
-	
-	intervalID = setTimeout(function() {
-		Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
-		Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
-		innerIntervalID = setInterval(displayTime, 25);
-	}, 1000);
+
+    Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.add('iniani'));
+    Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.add('iniani'));
+    // Array.from(document.getElementsByClassName('inside_hand')).forEach((elem) => elem.classList.add('iniani'));
+
+    displayTime();
+
+    intervalID = setTimeout(function () {
+        Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
+        Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
+        Array.from(document.getElementsByClassName('inside_hand')).forEach((elem) => elem.classList.remove('iniani'));
+        innerIntervalID = setInterval(displayTime, 25);
+    }, 1000);
 }
 
 function displayTime() {
@@ -99,6 +107,7 @@ function displayTime() {
     }
     else {
         month_span.innerHTML = AD_MONTHS_SHORT[month];
+        month_span.classList.remove("nep");
         date_span.innerHTML = ddate;
         month_span.style.textTransform = "uppercase";
     }
@@ -136,29 +145,41 @@ function displayTime() {
 
     let ms_rotation = (mmss * 9) / 25;
 
+    let h_ii_rotation = 30 * utc_hh + utc_mm / 2 + utc_ss / 120 + utc_mmss / 120000;
+    let m_ii_rotation = 6 * utc_mm + utc_ss / 10 + utc_mmss / 10000;
+    let s_ii_rotation = 6 * utc_ss + (utc_mmss * 3) / 500;
+
     let y_rotation = leap_year ? yearly_days / 366 * 360 : yearly_days / 365 * 360;
     if (in_nep) {
         y_rotation = (days_of_year_bs(year, month + 1, ddate) / BS_CALENDAR_DATA[bs_date[0]][12]) * 360;
     }
+    y_rotation += (hh / (24 * 365) + mm / (24 * 60 * 365)) * 360;
 
     year_hand.style.transform = `rotate(${y_rotation}deg)`;
+
     hour.style.transform = `rotate(${h_rotation}deg)`;
     rev_hour.style.transform = `rotate(${h_rotation + 180}deg)`;
     minute.style.transform = `rotate(${m_rotation}deg)`;
     rev_minute.style.transform = `rotate(${m_rotation + 180}deg)`;
     second.style.transform = `rotate(${s_rotation}deg)`;
     rev_second.style.transform = `rotate(${s_rotation + 180}deg)`;
+
     msecond1.style.transform = `rotate(${ms_rotation}deg)`;
     msecond2.style.transform = `rotate(${ms_rotation + 120}deg)`;
     msecond3.style.transform = `rotate(${ms_rotation + 240}deg)`;
+
+    hour_ii.style.transform = `rotate(${h_ii_rotation}deg)`;
+    minute_ii.style.transform = `rotate(${m_ii_rotation}deg)`;
+    second_ii.style.transform = `rotate(${s_ii_rotation}deg)`;
 }
 
 displayTime();
 
 let innerIntervalID = null;
 
-let intervalID = setTimeout(function() {
-	Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
-	Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
-	innerIntervalID = setInterval(displayTime, 25);
+let intervalID = setTimeout(function () {
+    Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
+    Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
+    Array.from(document.getElementsByClassName('inside_hand')).forEach((elem) => elem.classList.remove('iniani'));
+    innerIntervalID = setInterval(displayTime, 25);
 }, 1000);
