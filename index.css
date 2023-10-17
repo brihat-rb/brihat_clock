@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Laila;
-    /* color: #fff; */
     user-select: none;
 }
 
@@ -198,6 +197,7 @@ span.ticks b {
 
 #date {
     left: 160px;
+    color: white;
 }
 
 #digital {
