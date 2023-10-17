@@ -6,6 +6,18 @@
     user-select: none;
 }
 
+#name {
+    position: absolute;
+    left: 85%;
+    top: 88%;
+    text-transform: lowercase;
+    transform: rotate(-45deg);
+    color: gold;
+    filter: drop-shadow(0px 0px 1px lime);
+    font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+    font-size: xxx-large;
+}
+
 .iniani {
     transition: ease-in 1s;
 }
@@ -28,6 +40,7 @@ body {
     outline: 5px solid darkgreen;
     outline-offset: 5px;
     box-shadow: 0 0 100px gold;
+    overflow: clip;
 }
 
 .clock {
@@ -137,6 +150,22 @@ span.ticks b {
     border-radius: 40%;
 }
 
+#day_of_week {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    top: 55%;
+    color:rgba(0, 0, 0, 1);
+    filter: drop-shadow(0px 0px 5px cyan);
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.day_of_week {
+    color: ghostwhite;
+    filter: drop-shadow(0px 0px 10px gold);
+}
 
 #hour_ii {
     --clr: coral;
@@ -398,6 +427,11 @@ span.ticks b {
     padding-top: 5px;
 }
 
+.year_nep {
+    font-size: xx-large !important;
+    top: 46% !important;
+}
+
 #sunrise_sunset {
     position: absolute;
     font-size: 50px;
@@ -408,7 +442,7 @@ span.ticks b {
     justify-content: space-around;
 }
 
-#sunrise, #sunset{
+#sunrise, #sunset {
     color: rgba(0, 0, 0, 0.75);
     filter: drop-shadow(0px 0px 5px lime);
 }
@@ -421,9 +455,35 @@ span.ticks b {
     color: ghostwhite !important;
 }
 
+#hole {
+    top: 88%;
+    position: absolute;
+    color: greenyellow;
+    filter: drop-shadow(0px 0px 5px lime);
+    left: 0%;
+    font-size: xxx-large;
+    font-weight: bold;
+}
+
+#cal_year {
+    color: gold;
+    position: absolute;
+    top: 47%;
+    left: 20%;
+    font-weight: bold;
+    font-size: x-large;
+    letter-spacing: 5px;
+}
+
 @media screen and (max-width: 400px) {
     * {
         scrollbar-width: none;
+    }
+
+    #name {
+        left: 87%;
+        top: 91%;
+        font-size: x-large;
     }
 
     .container {
@@ -517,7 +577,7 @@ span.ticks b {
 
     #month_date {
         font-size: 20px;
-        top: -20px;
+        top: -18px;
     }
 
     #month {
@@ -618,9 +678,32 @@ span.ticks b {
         left: 97px !important;
     }
 
+    #day_of_week {
+        width: 222px;
+        top: 57%;
+        font-size: small;
+    }
+
     #sunrise_sunset {
         font-size: 25px;
         top: -5%;
         width: 190%;
+    }
+
+    #cal_year {
+        top: 45%;
+        font-size: large;
+        letter-spacing: 0px;
+    }
+
+    .year_nep {
+        font-size: large !important;
+        top: 45% !important;
+    }
+
+    #hole {
+        top: 91%;
+        left: -1%;
+        font-size: x-large;
     }
 }

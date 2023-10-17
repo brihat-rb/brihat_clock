@@ -25,8 +25,10 @@ let rev_hour = document.getElementById('rev_hour');
 let rev_minute = document.getElementById('rev_minute');
 let rev_second = document.getElementById('rev_second');
 
+let year_span = document.getElementById('cal_year');
 let month_span = document.getElementById('month');
 let date_span = document.getElementById('date');
+let day_of_week_div = document.getElementById('day_of_week');
 
 let hour_span = document.getElementById('digital_hour');
 let minute_span = document.getElementById('digital_minute');
@@ -91,6 +93,7 @@ function displayTime() {
     let year = date.getFullYear();
     let month = date.getMonth();
     let ddate = date.getDate();
+    let dow = date.getDay();
     let yearly_days = days_of_year(date);
     let leap_year = is_leap_year(year);
 
@@ -104,16 +107,23 @@ function displayTime() {
     let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
 
     if (in_nep) {
+        year_span.innerHTML = arabic_numbertext_to_nepali(bs_date[0]);
+        year_span.classList.add('year_nep');
         month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
         month_span.classList.add("nep");
         date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
     }
     else {
+        year_span.innerHTML = year;
+        year_span.classList.remove('year_nep');
         month_span.innerHTML = AD_MONTHS_SHORT[month];
         month_span.classList.remove("nep");
         date_span.innerHTML = ddate;
         month_span.style.textTransform = "uppercase";
     }
+
+    Array.from(document.getElementsByClassName('dayofweek')).forEach((elem) => elem.classList.remove('day_of_week'));
+    document.getElementsByClassName('dayofweek')[dow].classList.add("day_of_week");
 
     hour_span.innerHTML = hh.toString().padStart(2, "0");
     minute_span.innerHTML = mm.toString().padStart(2, "0");
