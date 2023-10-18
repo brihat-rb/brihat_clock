@@ -16,11 +16,8 @@
     <div class="container">
         <div class="clock">
             <div id="name">Brihat</div>
+            
             <div class="insideclock" id="inside_clock">
-                <div class="inside_hand iniani" id="hour_ii"><i></i></div>
-                <div class="inside_hand iniani" id="minute_ii"><i></i></div>
-                <div class="inside_hand iniani" id="second_ii"><i></i></div>
-
                 <span class="clock_time" style="--jk:1"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:2"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:3"><b>3</b></span>
@@ -33,77 +30,14 @@
                 <span class="clock_time" style="--jk:10"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:11"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:12"><b>12</b></span>
+                
+                <div class="inside_hand iniani" id="hour_ii"><i></i></div>
+                <div class="inside_hand iniani" id="minute_ii"><i></i></div>
+                <div class="inside_hand iniani" id="second_ii"><i></i></div>
 
                 <div style="--clr:white;--ht:3px;--wt:3px; z-index: 999;" class="inside_hand" id="inside_dot"><i></i>
                 </div>
             </div>
-            <div class="hand iniani" id="year"><i></i></div>
-
-            <div id="digital">
-                <span><mark id="digital_hour">00</mark></span>
-                <span><mark id="digital_minute">00</mark></span>
-                <span><mark id="digital_second">00</mark></span>
-                <span><mark id="digital_msecond">000</mark></span>
-            </div>
-
-            <div id="utc_digital">
-                <span id="utc_span">UTC: </span>
-                <span><mark id="utc_month">JAN</mark></span>
-                <span><mark id="utc_date">1</mark></span>
-                <span><mark id="utc_digital_hour">00</mark></span>
-                <span><mark id="utc_digital_minute">00</mark></span>
-                <span><mark id="utc_digital_second">00</mark></span>
-                <span><mark id="utc_digital_msecond">000</mark></span>
-            </div>
-
-            <div id="sunrise_sunset">
-                <div><i id='sunrise' class='fa fa-sun-o' aria-hidden='true'></i></div>
-                <div><i id='sunset' class='fa fa-moon-o' aria-hidden='true'></i></div>
-            </div>
-
-            <div id="hole"><i class="fa fa-circle-o"></i></div>
-
-            <div id="cal_year">0000</div>
-            <div id="month_date">
-                <span><mark id="month">JAN</mark></span>
-                <span id="date">1</span>
-            </div>
-
-            <div id="day_of_week">
-                <div class="dayofweek" id="sun">S</div>
-                <div class="dayofweek" id="mon">M</div>
-                <div class="dayofweek" id="thu">T</div>
-                <div class="dayofweek" id="wed">W</div>
-                <div class="dayofweek" id="thu">T</div>
-                <div class="dayofweek" id="fri">F</div>
-                <div class="dayofweek" id="sat">S</div>
-            </div>
-
-            <div class="hand iniani" id="hour"><i></i></div>
-            <div class="handrev iniani" id="rev_hour"><i></i></div>
-
-            <div class="hand iniani" id="minute"><i></i></div>
-            <div class="handrev iniani" id="rev_minute"><i></i></div>
-
-            <div class="hand iniani" id="second"><i></i></div>
-            <div class="handrev iniani" id="rev_second"><i></i></div>
-
-            <div class="hand iniani" id="msecond1"><i></i></div>
-            <div class="hand iniani" id="msecond2"><i></i></div>
-            <div class="hand iniani" id="msecond3"><i></i></div>
-
-            <span class="clocktime" style="--j:1"><b>1</b></span>
-            <span class="clocktime" style="--j:2"><b>2</b></span>
-            <span class="clocktime" style="--j:3"><b>3</b></span>
-            <span class="clocktime" style="--j:4"><b>4</b></span>
-            <span class="clocktime" style="--j:5"><b>5</b></span>
-            <span class="clocktime" style="--j:6"><b>6</b></span>
-            <span class="clocktime" style="--j:7"><b>7</b></span>
-            <span class="clocktime" style="--j:8"><b>8</b></span>
-            <span class="clocktime" style="--j:9"><b>9</b></span>
-            <span class="clocktime" style="--j:10"><b>10</b></span>
-            <span class="clocktime" style="--j:11"><b>11</b></span>
-            <span class="clocktime" style="--j:12"><b>12</b></span>
 
             <span class="ticks" style="--ticks:1"><b>&hyphen;</b></span>
             <span class="ticks" style="--ticks:2"><b>&hyphen;</b></span>
@@ -177,6 +111,74 @@
             <span class="ticks" style="--ticks:59"><b>&hyphen;</b></span>
             <span class="ticks" style="--ticks:00"><b>&mdash;</b></span>
 
+            <span class="clocktime" style="--j:1"><b>1</b></span>
+            <span class="clocktime" style="--j:2"><b>2</b></span>
+            <span class="clocktime" style="--j:3"><b>3</b></span>
+            <span class="clocktime" style="--j:4"><b>4</b></span>
+            <span class="clocktime" style="--j:5"><b>5</b></span>
+            <span class="clocktime" style="--j:6"><b>6</b></span>
+            <span class="clocktime" style="--j:7"><b>7</b></span>
+            <span class="clocktime" style="--j:8"><b>8</b></span>
+            <span class="clocktime" style="--j:9"><b>9</b></span>
+            <span class="clocktime" style="--j:10"><b>10</b></span>
+            <span class="clocktime" style="--j:11"><b>11</b></span>
+            <span class="clocktime" style="--j:12"><b>12</b></span>
+
+            <div id="sunrise_sunset">
+                <div><i id='sunrise' class='fa fa-sun-o' aria-hidden='true'></i></div>
+                <div><i id='sunset' class='fa fa-moon-o' aria-hidden='true'></i></div>
+            </div>
+
+            <div id="hole"><i class="fa fa-circle-o"></i></div>
+
+            <div id="cal_year">0000</div>
+            <div id="month_date">
+                <span><mark id="month">JAN</mark></span>
+                <span id="date">1</span>
+            </div>
+
+            <div id="day_of_week">
+                <div class="dayofweek" id="sun">S</div>
+                <div class="dayofweek" id="mon">M</div>
+                <div class="dayofweek" id="thu">T</div>
+                <div class="dayofweek" id="wed">W</div>
+                <div class="dayofweek" id="thu">T</div>
+                <div class="dayofweek" id="fri">F</div>
+                <div class="dayofweek" id="sat">S</div>
+            </div>
+
+            <div class="hand iniani" id="year"><i></i></div>
+
+            <div id="utc_digital">
+                <span id="utc_span">UTC: </span>
+                <span><mark id="utc_month">JAN</mark></span>
+                <span><mark id="utc_date">1</mark></span>
+                <span><mark id="utc_digital_hour">00</mark></span>
+                <span><mark id="utc_digital_minute">00</mark></span>
+                <span><mark id="utc_digital_second">00</mark></span>
+                <span><mark id="utc_digital_msecond">000</mark></span>
+            </div>
+            
+            <div id="digital">
+                <span><mark id="digital_hour">00</mark></span>
+                <span><mark id="digital_minute">00</mark></span>
+                <span><mark id="digital_second">00</mark></span>
+                <span><mark id="digital_msecond">000</mark></span>
+            </div>
+            
+            <div class="hand iniani" id="hour"><i></i></div>
+            <div class="handrev iniani" id="rev_hour"><i></i></div>
+
+            <div class="hand iniani" id="minute"><i></i></div>
+            <div class="handrev iniani" id="rev_minute"><i></i></div>
+
+            <div class="hand iniani" id="second"><i></i></div>
+            <div class="handrev iniani" id="rev_second"><i></i></div>
+
+            <div class="hand iniani" id="msecond1"><i></i></div>
+            <div class="hand iniani" id="msecond2"><i></i></div>
+            <div class="hand iniani" id="msecond3"><i></i></div>
+            
             <div style="--clr:white;--ht:10px;--wt:10px; z-index: 999;" class="hand" id="dot" onclick="toggle_lang();">
                 <i></i>
             </div>
