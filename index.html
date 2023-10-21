@@ -16,7 +16,7 @@
     <div class="container">
         <div class="clock">
             <div id="name">Brihat</div>
-            
+
             <div class="insideclock" id="inside_clock">
                 <span class="clock_time" style="--jk:1"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:2"><b>&middot;</b></span>
@@ -30,7 +30,7 @@
                 <span class="clock_time" style="--jk:10"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:11"><b>&middot;</b></span>
                 <span class="clock_time" style="--jk:12"><b>12</b></span>
-                
+
                 <div class="inside_hand iniani" id="hour_ii"><i></i></div>
                 <div class="inside_hand iniani" id="minute_ii"><i></i></div>
                 <div class="inside_hand iniani" id="second_ii"><i></i></div>
@@ -129,7 +129,8 @@
                 <div><i id='sunset' class='fa fa-moon-o' aria-hidden='true'></i></div>
             </div>
 
-            <div id="hole"><i class="fa fa-circle-o"></i></div>
+            <div id="hole" onclick="swap_time_clock();" title="Click to swap inner and outer clock"><i
+                    class="fa fa-circle-o"></i></div>
 
             <div id="cal_year">0000</div>
             <div id="month_date">
@@ -158,14 +159,14 @@
                 <span><mark id="utc_digital_second">00</mark></span>
                 <span><mark id="utc_digital_msecond">000</mark></span>
             </div>
-            
+
             <div id="digital">
                 <span><mark id="digital_hour">00</mark></span>
                 <span><mark id="digital_minute">00</mark></span>
                 <span><mark id="digital_second">00</mark></span>
                 <span><mark id="digital_msecond">000</mark></span>
             </div>
-            
+
             <div class="hand iniani" id="hour"><i></i></div>
             <div class="handrev iniani" id="rev_hour"><i></i></div>
 
@@ -178,7 +179,7 @@
             <div class="hand iniani" id="msecond1"><i></i></div>
             <div class="hand iniani" id="msecond2"><i></i></div>
             <div class="hand iniani" id="msecond3"><i></i></div>
-            
+
             <div style="--clr:white;--ht:10px;--wt:10px; z-index: 999;" class="hand" id="dot" onclick="toggle_lang();">
                 <i></i>
             </div>

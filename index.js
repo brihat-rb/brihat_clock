@@ -1,4 +1,5 @@
 let lang = "en";
+let swap_clock = false;
 
 if (localStorage.LANG) {
     lang = localStorage.LANG;
@@ -41,6 +42,7 @@ let utc_second_span = document.getElementById('utc_digital_second');
 let utc_msecond_span = document.getElementById('utc_digital_msecond');
 let utc_month_span = document.getElementById('utc_month');
 let utc_date_span = document.getElementById('utc_date');
+let utc_label_span = document.getElementById('utc_span');
 
 let sunrise_div = document.getElementById('sunrise');
 let sunset_div = document.getElementById('sunset');
@@ -54,6 +56,26 @@ function days_of_year_bs(ad_year, ad_month, ad_date) {
     let today_date_bs_in_ad = Date.UTC(ad_year, ad_month, ad_date);
     let start_date_bs_in_ad = Date.UTC(...convert_bs_to_ad(today_bs[0], 1, 1).split(" "));
     return (today_date_bs_in_ad - start_date_bs_in_ad) / (24 * 60 * 60 * 1000);
+}
+
+function swap_time_clock() {
+    clearInterval(intervalID);
+    clearInterval(innerIntervalID);
+
+    swap_clock = !swap_clock;
+
+    Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.add('iniani'));
+    Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.add('iniani'));
+    Array.from(document.getElementsByClassName('inside_hand')).forEach((elem) => elem.classList.add('iniani'));
+
+    displayTime();
+
+    intervalID = setTimeout(function () {
+        Array.from(document.getElementsByClassName('hand')).forEach((elem) => elem.classList.remove('iniani'));
+        Array.from(document.getElementsByClassName('handrev')).forEach((elem) => elem.classList.remove('iniani'));
+        Array.from(document.getElementsByClassName('inside_hand')).forEach((elem) => elem.classList.remove('iniani'));
+        innerIntervalID = setInterval(displayTime, 25);
+    }, 1000);
 }
 
 function toggle_lang() {
@@ -101,25 +123,71 @@ function displayTime() {
     let utc_mm = date.getUTCMinutes();
     let utc_ss = date.getUTCSeconds();
     let utc_mmss = date.getUTCMilliseconds();
+    let utc_year = date.getUTCFullYear();
     let utc_month = date.getUTCMonth();
     let utc_ddate = date.getUTCDate();
 
-    let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
+    if (swap_clock) {
+        [hh, utc_hh] = [utc_hh, hh];
+        [mm, utc_mm] = [utc_mm, mm];
+        [ss, utc_ss] = [utc_ss, ss];
+        [mmss, utc_mmss] = [utc_mmss, mmss];
 
-    if (in_nep) {
-        year_span.innerHTML = arabic_numbertext_to_nepali(bs_date[0]);
-        year_span.classList.add('year_nep');
-        month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
-        month_span.classList.add("nep");
-        date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
+        utc_label_span.innerHTML = "LCL:";
+
+        if (in_nep) {
+            Array.from(document.getElementsByClassName("clock_time")).forEach((elem, index) => {
+                if ([2, 5, 8, 11].includes(index)) {
+                    elem.childNodes[0].innerText = arabic_numbertext_to_nepali(elem.childNodes[0].innerText);
+                }
+            });
+        }
     }
     else {
-        year_span.innerHTML = year;
-        year_span.classList.remove('year_nep');
-        month_span.innerHTML = AD_MONTHS_SHORT[month];
-        month_span.classList.remove("nep");
-        date_span.innerHTML = ddate;
-        month_span.style.textTransform = "uppercase";
+        utc_label_span.innerHTML = "UTC:";
+        Array.from(document.getElementsByClassName("clock_time")).forEach((elem, index) => {
+            if ([2, 5, 8, 11].includes(index)) {
+                elem.childNodes[0].innerText = index + 1;
+            }
+        });
+    }
+
+    let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
+
+    month_span.classList.remove("nep", "swap");
+    if (!swap_clock) { //NTP
+        if (in_nep) {
+            year_span.innerHTML = arabic_numbertext_to_nepali(bs_date[0]);
+            year_span.classList.add('year_nep');
+            month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
+            month_span.classList.add("nep");
+            date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
+        }
+        else {
+            year_span.innerHTML = year;
+            year_span.classList.remove('year_nep');
+            month_span.innerHTML = AD_MONTHS_SHORT[month];
+            month_span.classList.remove("nep");
+            date_span.innerHTML = ddate;
+            month_span.style.textTransform = "uppercase";
+        }
+    }
+    else { //UTC
+        if (in_nep) {
+            year_span.innerHTML = arabic_numbertext_to_nepali(year);
+            year_span.classList.add('year_nep');
+            month_span.innerHTML = AD_MONTHS_NEP[month];
+            month_span.classList.add("nep", "swap");
+            date_span.innerHTML = arabic_numbertext_to_nepali(ddate);
+        }
+        else {
+            year_span.innerHTML = bs_date[0];
+            year_span.classList.remove('year_nep');
+            month_span.innerHTML = BS_MONTHS[bs_date[1]].slice(0, 3);
+            month_span.classList.remove("nep", "swap");
+            date_span.innerHTML = bs_date[2];
+            // month_span.style.textTransform = "uppercase";
+        }
     }
 
     Array.from(document.getElementsByClassName('dayofweek')).forEach((elem) => elem.classList.remove('day_of_week'));
@@ -130,7 +198,7 @@ function displayTime() {
     second_span.innerHTML = ss.toString().padStart(2, "0");
     msecond_span.innerHTML = mmss.toString().padStart(3, "0");
 
-    if (in_nep) {
+    if (in_nep && !swap_clock) {
         hour_span.style.fontFamily = "Laila";
         minute_span.style.fontFamily = "Laila";
         second_span.style.fontFamily = "Laila";
@@ -141,13 +209,28 @@ function displayTime() {
         msecond_span.innerHTML = arabic_numbertext_to_nepali(mmss.toString().padStart(3, "0"));
     }
 
-    utc_hour_span.innerHTML = utc_hh.toString().padStart(2, "0");
-    utc_minute_span.innerHTML = utc_mm.toString().padStart(2, "0");
-    utc_second_span.innerHTML = utc_ss.toString().padStart(2, "0");
-    utc_msecond_span.innerHTML = utc_mmss.toString().padStart(3, "0");
-    utc_month_span.innerHTML = AD_MONTHS_SHORT[utc_month];
+    utc_hour_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_hh.toString().padStart(2, "0")) : utc_hh.toString().padStart(2, "0");
+    utc_minute_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_mm.toString().padStart(2, "0")) : utc_mm.toString().padStart(2, "0");
+    utc_second_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_ss.toString().padStart(2, "0")) : utc_ss.toString().padStart(2, "0");
+    utc_msecond_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_mmss.toString().padStart(3, "0")) : utc_mmss.toString().padStart(3, "0");
+
+    if (swap_clock) {
+        // [month, utc_month] = [utc_month, month];
+        // [ddate, utc_ddate] = [utc_ddate, ddate];
+        utc_month = bs_date[1];
+        utc_ddate = bs_date[2];
+    }
+
+    utc_month_span.innerHTML = swap_clock ? in_nep ? BS_MONTHS_NEP[utc_month] : BS_MONTHS[utc_month].slice(0,3) : in_nep ? AD_MONTHS_SHORT[utc_month] : AD_MONTHS_SHORT[utc_month];
+    // utc_month_span.innerHTML = (in_nep && swap_clock) ? BS_MONTHS_NEP[utc_month] : AD_MONTHS_SHORT[utc_month];
     utc_month_span.style.textTransform = "uppercase";
-    utc_date_span.innerHTML = utc_ddate.toString();
+    utc_date_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_ddate.toString()) : utc_ddate.toString();
+    if (swap_clock) {
+        utc_date_span.classList.add("swap");
+    }
+    else {
+        utc_date_span.classList.remove("swap");
+    }
 
     // let h_rotation = 30 * hh + mm / 2 + ss / 120;
     let h_rotation = 30 * hh + mm / 2 + ss / 120 + mmss / 120000;
@@ -194,16 +277,31 @@ function displayTime() {
         var today_sunset_hh = parseInt(today_sunset[0]);
         var today_sunset_mm = parseInt(today_sunset[1]);
 
-        if ((hh < today_sunrise_hh || (hh == today_sunrise_hh && mm < today_sunrise_mm)) || (hh > today_sunset_hh || (hh == today_sunset_hh && mm > today_sunset_mm))) {
-            // moon
-            sunset_div.classList.add("sunset");
-            sunrise_div.classList.remove("sunrise");
+        if (swap_clock) {
+            if ((utc_hh < today_sunrise_hh || (utc_hh == today_sunrise_hh && utc_mm < today_sunrise_mm)) || (utc_hh > today_sunset_hh || (utc_hh == today_sunset_hh && utc_mm > today_sunset_mm))) {
+                // moon
+                sunset_div.classList.add("sunset");
+                sunrise_div.classList.remove("sunrise");
+            }
+            else if ((utc_hh > today_sunrise_hh || (utc_hh == today_sunrise_hh && utc_mm >= today_sunrise_mm)) && (utc_hh < today_sunset_hh || (utc_hh == today_sunset_hh && utc_mm <= today_sunset_mm))) {
+                //sun
+                sunset_div.classList.remove("sunset");
+                sunrise_div.classList.add("sunrise");
+            }
         }
-        else if ((hh > today_sunrise_hh || (hh == today_sunrise_hh && mm >= today_sunrise_mm)) && (hh < today_sunset_hh || (hh == today_sunset_hh && mm <= today_sunset_mm))) {
-            //sun
-            sunset_div.classList.remove("sunset");
-            sunrise_div.classList.add("sunrise");
+        else {
+            if ((hh < today_sunrise_hh || (hh == today_sunrise_hh && mm < today_sunrise_mm)) || (hh > today_sunset_hh || (hh == today_sunset_hh && mm > today_sunset_mm))) {
+                // moon
+                sunset_div.classList.add("sunset");
+                sunrise_div.classList.remove("sunrise");
+            }
+            else if ((hh > today_sunrise_hh || (hh == today_sunrise_hh && mm >= today_sunrise_mm)) && (hh < today_sunset_hh || (hh == today_sunset_hh && mm <= today_sunset_mm))) {
+                //sun
+                sunset_div.classList.remove("sunset");
+                sunrise_div.classList.add("sunrise");
+            }
         }
+
     }
     else {
         // console.warn("Could not fetch sunrise-sunset times.");
