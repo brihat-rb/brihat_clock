@@ -43,6 +43,8 @@ let utc_msecond_span = document.getElementById('utc_digital_msecond');
 let utc_month_span = document.getElementById('utc_month');
 let utc_date_span = document.getElementById('utc_date');
 let utc_label_span = document.getElementById('utc_span');
+let inside_clock_tz = document.getElementById('inside_clock_tz');
+let utc_clock = document.getElementById('utc_clock');
 
 let sunrise_div = document.getElementById('sunrise');
 let sunset_div = document.getElementById('sunset');
@@ -100,6 +102,8 @@ function toggle_lang() {
     }, 1000);
 }
 
+let local_date = "";
+
 function displayTime() {
     let time_span = document.getElementsByClassName("clocktime");
     for (var i = 0; i < time_span.length; i++) {
@@ -107,18 +111,6 @@ function displayTime() {
     }
 
     let date = new Date();
-
-    let hh = date.getHours();
-    let mm = date.getMinutes();
-    let ss = date.getSeconds();
-    let mmss = date.getMilliseconds();
-    let year = date.getFullYear();
-    let month = date.getMonth();
-    let ddate = date.getDate();
-    let dow = date.getDay();
-    let yearly_days = days_of_year(date);
-    let leap_year = is_leap_year(year);
-
     let utc_hh = date.getUTCHours();
     let utc_mm = date.getUTCMinutes();
     let utc_ss = date.getUTCSeconds();
@@ -126,6 +118,35 @@ function displayTime() {
     let utc_year = date.getUTCFullYear();
     let utc_month = date.getUTCMonth();
     let utc_ddate = date.getUTCDate();
+    let time_offset = date.getTimezoneOffset();
+
+    local_date = date;
+    let hh = local_date.getHours();
+    let mm = local_date.getMinutes();
+    let ss = local_date.getSeconds();
+    let mmss = local_date.getMilliseconds();
+    let year = local_date.getFullYear();
+    let month = local_date.getMonth();
+    let ddate = local_date.getDate();
+    let dow = local_date.getDay();
+    let yearly_days = days_of_year(local_date);
+    let leap_year = is_leap_year(year);
+
+    if (time_offset != -345) {
+        console.log(time_offset);
+        console.log("here");
+        local_date = new Date(date.setMinutes(mm + time_offset + 345));
+        hh = local_date.getHours();
+        mm = local_date.getMinutes();
+        ss = local_date.getSeconds();
+        mmss = local_date.getMilliseconds();
+        year = local_date.getFullYear();
+        month = local_date.getMonth();
+        ddate = local_date.getDate();
+        dow = local_date.getDay();
+        yearly_days = days_of_year(local_date);
+        leap_year = is_leap_year(year);
+    }
 
     if (swap_clock) {
         [hh, utc_hh] = [utc_hh, hh];
@@ -133,7 +154,8 @@ function displayTime() {
         [ss, utc_ss] = [utc_ss, ss];
         [mmss, utc_mmss] = [utc_mmss, mmss];
 
-        utc_label_span.innerHTML = "LCL:";
+        utc_label_span.innerHTML = "NPT:";
+        inside_clock_tz.innerHTML = "NPT";
 
         if (in_nep) {
             Array.from(document.getElementsByClassName("clock_time")).forEach((elem, index) => {
@@ -145,6 +167,7 @@ function displayTime() {
     }
     else {
         utc_label_span.innerHTML = "UTC:";
+        inside_clock_tz.innerHTML = "UTC";
         Array.from(document.getElementsByClassName("clock_time")).forEach((elem, index) => {
             if ([2, 5, 8, 11].includes(index)) {
                 elem.childNodes[0].innerText = index + 1;
@@ -215,21 +238,48 @@ function displayTime() {
     utc_msecond_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_mmss.toString().padStart(3, "0")) : utc_mmss.toString().padStart(3, "0");
 
     if (swap_clock) {
-        // [month, utc_month] = [utc_month, month];
-        // [ddate, utc_ddate] = [utc_ddate, ddate];
+        utc_year = bs_date[0];
         utc_month = bs_date[1];
         utc_ddate = bs_date[2];
     }
 
-    utc_month_span.innerHTML = swap_clock ? in_nep ? BS_MONTHS_NEP[utc_month] : BS_MONTHS[utc_month].slice(0,3) : in_nep ? AD_MONTHS_SHORT[utc_month] : AD_MONTHS_SHORT[utc_month];
-    // utc_month_span.innerHTML = (in_nep && swap_clock) ? BS_MONTHS_NEP[utc_month] : AD_MONTHS_SHORT[utc_month];
+    utc_month_span.innerHTML = swap_clock ? in_nep ? BS_MONTHS_NEP[utc_month] : BS_MONTHS[utc_month].slice(0, 3) : in_nep ? AD_MONTHS_SHORT[utc_month] : AD_MONTHS_SHORT[utc_month];
     utc_month_span.style.textTransform = "uppercase";
     utc_date_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_ddate.toString()) : utc_ddate.toString();
     if (swap_clock) {
         utc_date_span.classList.add("swap");
+        utc_clock.classList.add("swap");
+        if (in_nep) {
+            // Array.from(document.getElementById('utc_digital').getElementsByTagName("span")).forEach(function (elem) {
+            //     elem.style.fontFamily = "Laila";
+            //     if (elem.children.length) {
+            //         elem.children[0].style.fontFamily = "Laila";
+            //     }
+            // });
+            utc_month_span.style.fontFamily = "Laila";
+            utc_date_span.style.fontFamily = "Laila";
+            utc_hour_span.style.fontFamily = "Laila";
+            utc_minute_span.style.fontFamily = "Laila";
+            utc_second_span.style.fontFamily = "Laila";
+            utc_msecond_span.style.fontFamily = "Laila";
+        }
     }
     else {
         utc_date_span.classList.remove("swap");
+        utc_clock.classList.remove("swap");
+        // Array.from(document.getElementById('utc_digital').getElementsByTagName("span")).forEach(function (elem) {
+        //     elem.style.fontFamily = "'Courier New', monospace";
+        //     if (elem.children.length) {
+        //         elem.children[0].style.fontFamily = "'Courier New', monospace";
+        //     }
+        // });
+        utc_month_span.style.fontFamily = "'Courier New', monospace";
+        utc_month_span.style.fontFamily = "'Courier New', monospace";
+        utc_date_span.style.fontFamily = "'Courier New', monospace";
+        utc_hour_span.style.fontFamily = "'Courier New', monospace";
+        utc_minute_span.style.fontFamily = "'Courier New', monospace";
+        utc_second_span.style.fontFamily = "'Courier New', monospace";
+        utc_msecond_span.style.fontFamily = "'Courier New', monospace";
     }
 
     // let h_rotation = 30 * hh + mm / 2 + ss / 120;
@@ -246,7 +296,7 @@ function displayTime() {
     let s_ii_rotation = 6 * utc_ss + (utc_mmss * 3) / 500;
 
     let y_rotation = leap_year ? yearly_days / 366 * 360 : yearly_days / 365 * 360;
-    if (in_nep) {
+    if ((in_nep && !swap_clock) || (!in_nep && swap_clock)) {
         y_rotation = (days_of_year_bs(year, month + 1, ddate) / BS_CALENDAR_DATA[bs_date[0]][12]) * 360;
     }
     y_rotation += (hh / (24 * 365) + mm / (24 * 60 * 365)) * 360;

@@ -167,6 +167,15 @@ span.ticks b {
     filter: drop-shadow(0px 0px 10px gold);
 }
 
+#inside_clock_tz {
+    position: absolute;
+    top: 25%;
+    color: gold;
+    font-weight: bold;
+    font-size: xx-large;
+    line-height: 2;
+}
+
 #hour_ii {
     --clr: coral;
     --ht: 25px;
@@ -425,6 +434,19 @@ span.ticks b {
     width: 30px !important;
 }
 
+#utc_clock {
+    position: absolute;
+    top: 85%;
+    font-size: x-large;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.75);
+    filter: drop-shadow(0px 0px 5px cyan);
+}
+
+#utc_clock.swap {
+    color: ghostwhite;
+}
+
 .nep {
     width: fit-content !important;
     height: 30px !important;
@@ -533,6 +555,15 @@ span.ticks b {
     #year {
         --ht: 150px !important;
         --wt: 2px;
+    }
+
+    #inside_clock_tz {
+        position: absolute;
+        top: 33%;
+        color: gold;
+        font-weight: bold;
+        font-size: small;
+        line-height: 2;
     }
 
     #hour {
@@ -674,6 +705,11 @@ span.ticks b {
         top: 2px;
         height: 7px !important;
         width: 20px !important;
+    }
+
+    #utc_clock {
+        top: 81%;
+        font-size: small;
     }
 
     .nep {
