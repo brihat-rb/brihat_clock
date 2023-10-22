@@ -247,9 +247,9 @@ function displayTime() {
     utc_month_span.style.textTransform = "uppercase";
     utc_date_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_ddate.toString()) : utc_ddate.toString();
     if (swap_clock) {
-        utc_date_span.classList.add("swap");
         utc_clock.classList.add("swap");
         if (in_nep) {
+            utc_date_span.classList.add("swap");
             // Array.from(document.getElementById('utc_digital').getElementsByTagName("span")).forEach(function (elem) {
             //     elem.style.fontFamily = "Laila";
             //     if (elem.children.length) {
@@ -262,6 +262,9 @@ function displayTime() {
             utc_minute_span.style.fontFamily = "Laila";
             utc_second_span.style.fontFamily = "Laila";
             utc_msecond_span.style.fontFamily = "Laila";
+        }
+        else {
+            utc_date_span.classList.remove("swap");
         }
     }
     else {
