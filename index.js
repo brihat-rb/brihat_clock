@@ -118,6 +118,7 @@ function displayTime() {
     let utc_year = date.getUTCFullYear();
     let utc_month = date.getUTCMonth();
     let utc_ddate = date.getUTCDate();
+    let utc_dow = date.getUTCDay();
     let time_offset = date.getTimezoneOffset();
 
     local_date = date;
@@ -133,8 +134,6 @@ function displayTime() {
     let leap_year = is_leap_year(year);
 
     if (time_offset != -345) {
-        console.log(time_offset);
-        console.log("here");
         local_date = new Date(date.setMinutes(mm + time_offset + 345));
         hh = local_date.getHours();
         mm = local_date.getMinutes();
@@ -197,24 +196,29 @@ function displayTime() {
     }
     else { //UTC
         if (in_nep) {
-            year_span.innerHTML = arabic_numbertext_to_nepali(year);
+            year_span.innerHTML = arabic_numbertext_to_nepali(utc_year);
             year_span.classList.add('year_nep');
-            month_span.innerHTML = AD_MONTHS_NEP[month];
+            month_span.innerHTML = AD_MONTHS_NEP[utc_month];
             month_span.classList.add("nep", "swap");
-            date_span.innerHTML = arabic_numbertext_to_nepali(ddate);
+            date_span.innerHTML = arabic_numbertext_to_nepali(utc_ddate);
         }
         else {
-            year_span.innerHTML = bs_date[0];
+            let utc_bs_date = convert_ad_to_bs(utc_year, utc_month, utc_ddate).split(" ");
+            year_span.innerHTML = utc_bs_date[0];
             year_span.classList.remove('year_nep');
-            month_span.innerHTML = BS_MONTHS[bs_date[1]].slice(0, 3);
+            month_span.innerHTML = BS_MONTHS[utc_bs_date[1]].slice(0, 3);
             month_span.classList.remove("nep", "swap");
-            date_span.innerHTML = bs_date[2];
-            // month_span.style.textTransform = "uppercase";
+            date_span.innerHTML = utc_bs_date[2];
         }
     }
 
     Array.from(document.getElementsByClassName('dayofweek')).forEach((elem) => elem.classList.remove('day_of_week'));
-    document.getElementsByClassName('dayofweek')[dow].classList.add("day_of_week");
+    if(swap_clock) {
+        document.getElementsByClassName('dayofweek')[utc_dow].classList.add("day_of_week");
+    }
+    else {
+        document.getElementsByClassName('dayofweek')[dow].classList.add("day_of_week");
+    }
 
     hour_span.innerHTML = hh.toString().padStart(2, "0");
     minute_span.innerHTML = mm.toString().padStart(2, "0");

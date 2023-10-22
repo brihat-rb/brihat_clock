@@ -3,6 +3,7 @@ var ad_year = today.getFullYear();
 
 var sunrise_url = 'https://raw.githubusercontent.com/brihat-rb/brihat_calendar/main/data/sunrise_sunset_json/sunrise_' + ad_year + '.json';
 var sunset_url = 'https://raw.githubusercontent.com/brihat-rb/brihat_calendar/main/data/sunrise_sunset_json/sunset_' + ad_year + '.json';
+console.info("*    *    *   * * *   *    *    *\n:", ad_year, ": Brihat Ratna Bajracharya\n*    *    *   * * *   *    *    *");
 
 var sunrise_req = new XMLHttpRequest();
 var sunset_req = new XMLHttpRequest();
