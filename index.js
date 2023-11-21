@@ -174,14 +174,14 @@ function displayTime() {
         });
     }
 
-    let bs_date = convert_ad_to_bs(year, month, ddate).split(" ");
+    let bs_date = convert_ad_to_bs(year, month + 1, ddate).split(" ");
 
     month_span.classList.remove("nep", "swap");
     if (!swap_clock) { //NTP
         if (in_nep) {
             year_span.innerHTML = arabic_numbertext_to_nepali(bs_date[0]);
             year_span.classList.add('year_nep');
-            month_span.innerHTML = BS_MONTHS_NEP[bs_date[1]];
+            month_span.innerHTML = BS_MONTHS_NEP[bs_date[1] - 1];
             month_span.classList.add("nep");
             date_span.innerHTML = arabic_numbertext_to_nepali(bs_date[2]);
         }
@@ -203,10 +203,10 @@ function displayTime() {
             date_span.innerHTML = arabic_numbertext_to_nepali(utc_ddate);
         }
         else {
-            let utc_bs_date = convert_ad_to_bs(utc_year, utc_month, utc_ddate).split(" ");
+            let utc_bs_date = convert_ad_to_bs(utc_year, utc_month + 1, utc_ddate).split(" ");
             year_span.innerHTML = utc_bs_date[0];
             year_span.classList.remove('year_nep');
-            month_span.innerHTML = BS_MONTHS[utc_bs_date[1]].slice(0, 3);
+            month_span.innerHTML = BS_MONTHS[utc_bs_date[1] - 1].slice(0, 3);
             month_span.classList.remove("nep", "swap");
             date_span.innerHTML = utc_bs_date[2];
         }
@@ -247,7 +247,7 @@ function displayTime() {
         utc_ddate = bs_date[2];
     }
 
-    utc_month_span.innerHTML = swap_clock ? in_nep ? BS_MONTHS_NEP[utc_month] : BS_MONTHS[utc_month].slice(0, 3) : in_nep ? AD_MONTHS_SHORT[utc_month] : AD_MONTHS_SHORT[utc_month];
+    utc_month_span.innerHTML = swap_clock ? in_nep ? BS_MONTHS_NEP[utc_month - 1] : BS_MONTHS[utc_month - 1].slice(0, 3) : in_nep ? AD_MONTHS_SHORT[utc_month] : AD_MONTHS_SHORT[utc_month];
     utc_month_span.style.textTransform = "uppercase";
     utc_date_span.innerHTML = (swap_clock && in_nep) ? arabic_numbertext_to_nepali(utc_ddate.toString()) : utc_ddate.toString();
     if (swap_clock) {
